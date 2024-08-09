@@ -1,22 +1,35 @@
-Problem: Price
-    Objectives:
-    - if customer has member card then discount 10%
-    - if order contains double or more of { orange, pink, green } then discount 5%
-    Input:
-    - Item[]
-    - Membership
-    - Item's Lookup Table
-    Output:
-    - Price
-      Solution:
-    - Using hashmap to be a lookup table for counting promotion and sum total
-  Cases:
-    * Happy
-      - When customer order red set without membership then get no discount.
-      - When customer order red set with membership then get 10% discount.
-      - When customer order red set with orange set 2 item then customer get 5% discount.
-      - When customer order orange set 2 item then customer get 5% discount.
-      - When customer order orange set more than 2 item then customer get 5% discount.
-      - When customer order orange set more than 2 item with membership then get 10% and 5% discount. => which discount should be apply first ?
-    * Edge
-      - When customer order no item then customer should get 0 price
+# Problem: Price Calculator
+
+## Objectives:
+
+- If the customer has a member card, then apply a 10% discount.
+- If the order contains double or more of {orange, pink, green}, then apply a 5% discount.
+
+## Input:
+
+- `Item[]`
+- `Membership`
+- `Item's Lookup Table`
+
+## Output:
+
+- `Price`
+
+## Solution:
+
+- Use a hashmap as a lookup table for counting promotions and summing the total.
+
+## Cases:
+
+### Happy
+
+- When the customer orders the red set without membership, they get no discount.
+- When the customer orders the red set with membership, they get a 10% discount.
+- When the customer orders the red set with 2 orange items, they get a 5% discount.
+- When the customer orders 2 orange items, they get a 5% discount.
+- When the customer orders more than 2 orange items, they get a 5% discount.
+- When the customer orders more than 2 orange items with membership, they get both a 10% and 5% discount. _(Which discount should be applied first?)_
+
+### Edge
+
+- When the customer orders no items, the total price should be `0`.
