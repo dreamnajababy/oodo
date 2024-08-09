@@ -25,6 +25,9 @@ export const DEFAULT_BILL: Bill = {
   Orange: 0,
 };
 export default class Calculator {
+  private MEMBER_DISCOUNT_RATE = 0.9;
+  private DOUBLE_ITEMS_DISCOUNT_RATE = 0.95;
+
   public calculate(
     items: Order,
     isMembership: boolean,
@@ -35,10 +38,10 @@ export default class Calculator {
       ...bill,
     });
     if (isMembership) {
-      totalPrice = totalPrice * 0.9;
+      totalPrice = totalPrice * this.MEMBER_DISCOUNT_RATE;
     }
     if (this.isDoubleItemPromotion(updatedBill)) {
-      totalPrice = totalPrice * 0.95;
+      totalPrice = totalPrice * this.DOUBLE_ITEMS_DISCOUNT_RATE;
     }
     return {
       orderHistory: updatedBill,
