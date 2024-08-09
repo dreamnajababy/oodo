@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "serve": "ts-node ./src",
+    "build": "tsc --build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,5 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.1.0"
   }
 }
