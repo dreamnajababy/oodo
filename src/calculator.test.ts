@@ -1,45 +1,49 @@
-import Calculator, {
-  defaultBill,
-  Order,
-  itemPriceLookupTable,
-  Bill,
-} from "./calculator";
+import Calculator, { defaultBill, Order, CalculatedBill } from "./calculator";
 
 describe("Calculator", () => {
   describe("Happy cases", () => {
     test("When customer order red set without membership then get no discount", () => {
       const order: Order = ["Red"];
-      const expectedBill = { ...defaultBill, Red: 1 };
       const isMembership = false;
-      const expected: Bill = {
+      const expected: CalculatedBill = {
         orderHistory: { ...defaultBill, Red: 1 },
         totalPrice: 50,
       };
       const result = new Calculator().calculate(
         order,
         isMembership,
-        expectedBill
+        defaultBill
       );
       expect(result).toEqual(expected);
     });
     test("When customer order red set with membership then get 10% discount", () => {
       const order: Order = ["Red"];
-      const expectedBill = { ...defaultBill, Red: 1 };
       const isMembership = true;
-      const expected: Bill = {
+      const expected: CalculatedBill = {
         orderHistory: { ...defaultBill, Red: 1 },
         totalPrice: 45,
       };
       const result = new Calculator().calculate(
         order,
         isMembership,
-        expectedBill
+        defaultBill
       );
       expect(result).toEqual(expected);
     });
-    test.todo(
-      "When customer order red set with orange set 2 item then customer get 5% discount"
-    );
+    test("When customer order red set with orange set 2 item then customer get 5% discount", () => {
+      const order: Order = ["Orange", "Orange"];
+      const isMembership = false;
+      const expectedBill: CalculatedBill = {
+        orderHistory: { ...defaultBill, Orange: 2 },
+        totalPrice: 228,
+      };
+      const result = new Calculator().calculate(
+        order,
+        isMembership,
+        defaultBill
+      );
+      expect(result).toEqual(expectedBill);
+    });
     test.todo(
       "When customer order orange set 2 item then customer get 5% discount."
     );
