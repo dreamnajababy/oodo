@@ -13,7 +13,7 @@ describe("Calculator", () => {
       const isMembership = false;
       const expected: Bill = {
         orderHistory: { ...defaultBill, Red: 1 },
-        totalPrice: itemPriceLookupTable["Red"],
+        totalPrice: 50,
       };
       const result = new Calculator().calculate(
         order,
@@ -22,9 +22,21 @@ describe("Calculator", () => {
       );
       expect(result).toEqual(expected);
     });
-    test.todo(
-      "When customer order red set with membership then get 10% discount"
-    );
+    test("When customer order red set with membership then get 10% discount", () => {
+      const order: Order = ["Red"];
+      const expectedBill = { ...defaultBill, Red: 1 };
+      const isMembership = true;
+      const expected: Bill = {
+        orderHistory: { ...defaultBill, Red: 1 },
+        totalPrice: 45,
+      };
+      const result = new Calculator().calculate(
+        order,
+        isMembership,
+        expectedBill
+      );
+      expect(result).toEqual(expected);
+    });
     test.todo(
       "When customer order red set with orange set 2 item then customer get 5% discount"
     );

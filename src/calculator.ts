@@ -31,10 +31,13 @@ export default class Calculator {
     isMembership: boolean,
     bill: Record<string, number>
   ): Bill {
-    const totalPrice = items.reduce(
+    let totalPrice = items.reduce(
       (totalPrice, itemName) => totalPrice + itemPriceLookupTable[itemName],
       0
     );
+    if (isMembership) {
+      totalPrice = totalPrice * 0.9;
+    }
     return {
       orderHistory: bill,
       totalPrice,
