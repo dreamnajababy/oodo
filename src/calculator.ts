@@ -38,10 +38,10 @@ export default class Calculator {
       ...bill,
     });
     if (isMembership) {
-      totalPrice = totalPrice * this.MEMBER_DISCOUNT_RATE;
+      totalPrice *= this.MEMBER_DISCOUNT_RATE;
     }
     if (this.isDoubleItemsPromotion(updatedBill)) {
-      totalPrice = totalPrice * this.DOUBLE_ITEMS_DISCOUNT_RATE;
+      totalPrice *= this.DOUBLE_ITEMS_DISCOUNT_RATE;
     }
     return {
       orderHistory: updatedBill,
