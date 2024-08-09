@@ -1,12 +1,12 @@
 type Price = number;
-export type Bill = Record<keyof typeof itemPriceLookupTable, number>;
+export type Bill = Record<keyof typeof ITEM_PRICE_TABLE, number>;
 export type CalculatedBill = {
   orderHistory: Bill;
   totalPrice: Price;
 };
-export type Item = keyof typeof itemPriceLookupTable;
+export type Item = keyof typeof ITEM_PRICE_TABLE;
 export type Order = Item[];
-export const itemPriceLookupTable = {
+export const ITEM_PRICE_TABLE = {
   Red: 50,
   Green: 40,
   Blue: 30,
@@ -15,7 +15,7 @@ export const itemPriceLookupTable = {
   Purple: 90,
   Orange: 120,
 } as const;
-export const defaultBill: Bill = {
+export const DEFAULT_BILL: Bill = {
   Red: 0,
   Green: 0,
   Blue: 0,
@@ -30,10 +30,7 @@ export default class Calculator {
     isMembership: boolean,
     bill: Bill
   ): CalculatedBill {
-    let totalPrice = items.reduce(
-      this.summarizeToPrice(itemPriceLookupTable),
-      0
-    );
+    let totalPrice = items.reduce(this.summarizeToPrice(ITEM_PRICE_TABLE), 0);
     const updatedBill = items.reduce(this.incrementItemInBill, {
       ...bill,
     });

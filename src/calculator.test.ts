@@ -1,4 +1,4 @@
-import Calculator, { defaultBill, Order, CalculatedBill } from "./calculator";
+import Calculator, { DEFAULT_BILL, Order, CalculatedBill } from "./calculator";
 
 describe("Calculator", () => {
   describe("Happy cases", () => {
@@ -6,13 +6,13 @@ describe("Calculator", () => {
       const order: Order = ["Red"];
       const isMembership = false;
       const expected: CalculatedBill = {
-        orderHistory: { ...defaultBill, Red: 1 },
+        orderHistory: { ...DEFAULT_BILL, Red: 1 },
         totalPrice: 50,
       };
       const result = new Calculator().calculate(
         order,
         isMembership,
-        defaultBill
+        DEFAULT_BILL
       );
       expect(result).toEqual(expected);
     });
@@ -20,13 +20,13 @@ describe("Calculator", () => {
       const order: Order = ["Red"];
       const isMembership = true;
       const expected: CalculatedBill = {
-        orderHistory: { ...defaultBill, Red: 1 },
+        orderHistory: { ...DEFAULT_BILL, Red: 1 },
         totalPrice: 45,
       };
       const result = new Calculator().calculate(
         order,
         isMembership,
-        defaultBill
+        DEFAULT_BILL
       );
       expect(result).toEqual(expected);
     });
@@ -34,13 +34,13 @@ describe("Calculator", () => {
       const order: Order = ["Orange", "Orange", "Red"];
       const isMembership = false;
       const expectedBill: CalculatedBill = {
-        orderHistory: { ...defaultBill, Orange: 2, Red: 1 },
+        orderHistory: { ...DEFAULT_BILL, Orange: 2, Red: 1 },
         totalPrice: 275.5,
       };
       const result = new Calculator().calculate(
         order,
         isMembership,
-        defaultBill
+        DEFAULT_BILL
       );
       expect(result).toEqual(expectedBill);
     });
@@ -48,13 +48,13 @@ describe("Calculator", () => {
       const order: Order = ["Orange", "Orange"];
       const isMembership = false;
       const expectedBill: CalculatedBill = {
-        orderHistory: { ...defaultBill, Orange: 2 },
+        orderHistory: { ...DEFAULT_BILL, Orange: 2 },
         totalPrice: 228,
       };
       const result = new Calculator().calculate(
         order,
         isMembership,
-        defaultBill
+        DEFAULT_BILL
       );
       expect(result).toEqual(expectedBill);
     });
@@ -62,13 +62,13 @@ describe("Calculator", () => {
       const order: Order = ["Pink", "Pink", "Pink"];
       const isMembership = false;
       const expectedBill: CalculatedBill = {
-        orderHistory: { ...defaultBill, Pink: 3 },
+        orderHistory: { ...DEFAULT_BILL, Pink: 3 },
         totalPrice: 228,
       };
       const result = new Calculator().calculate(
         order,
         isMembership,
-        defaultBill
+        DEFAULT_BILL
       );
       expect(result).toEqual(expectedBill);
     });
@@ -76,13 +76,13 @@ describe("Calculator", () => {
       const order: Order = ["Orange", "Orange", "Orange", "Red"];
       const isMembership = true;
       const expectedBill: CalculatedBill = {
-        orderHistory: { ...defaultBill, Orange: 3, Red: 1 },
+        orderHistory: { ...DEFAULT_BILL, Orange: 3, Red: 1 },
         totalPrice: 350.55,
       };
       const result = new Calculator().calculate(
         order,
         isMembership,
-        defaultBill
+        DEFAULT_BILL
       );
       expect(result).toEqual(expectedBill);
     });
@@ -92,13 +92,13 @@ describe("Calculator", () => {
       const order: Order = [];
       const isMembership = false;
       const expectedBill: CalculatedBill = {
-        orderHistory: defaultBill,
+        orderHistory: DEFAULT_BILL,
         totalPrice: 0,
       };
       const result = new Calculator().calculate(
         order,
         isMembership,
-        defaultBill
+        DEFAULT_BILL
       );
       expect(result).toEqual(expectedBill);
     });
