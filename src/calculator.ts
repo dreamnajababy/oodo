@@ -40,7 +40,7 @@ export default class Calculator {
     if (isMembership) {
       totalPrice = totalPrice * this.MEMBER_DISCOUNT_RATE;
     }
-    if (this.isDoubleItemPromotion(updatedBill)) {
+    if (this.isDoubleItemsPromotion(updatedBill)) {
       totalPrice = totalPrice * this.DOUBLE_ITEMS_DISCOUNT_RATE;
     }
     return {
@@ -58,7 +58,7 @@ export default class Calculator {
     }
     return updatedBill;
   }
-  private isDoubleItemPromotion(updatedBill: Bill): boolean {
+  private isDoubleItemsPromotion(updatedBill: Bill): boolean {
     const doublePromotionList: Item[] = ["Pink", "Orange", "Green"];
     return doublePromotionList.some((itemName) => updatedBill[itemName] >= 2);
   }
