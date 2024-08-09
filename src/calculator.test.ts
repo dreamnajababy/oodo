@@ -72,11 +72,35 @@ describe("Calculator", () => {
       );
       expect(result).toEqual(expectedBill);
     });
-    test.todo(
-      "When customer order orange set more than 2 item with membership then get 10% and 5% discount"
-    );
+    test("When customer order orange set more than 2 and red set with membership then get 10% and 5% discount", () => {
+      const order: Order = ["Orange", "Orange", "Orange", "Red"];
+      const isMembership = true;
+      const expectedBill: CalculatedBill = {
+        orderHistory: { ...defaultBill, Orange: 3, Red: 1 },
+        totalPrice: 350.55,
+      };
+      const result = new Calculator().calculate(
+        order,
+        isMembership,
+        defaultBill
+      );
+      expect(result).toEqual(expectedBill);
+    });
   });
   describe("Edge cases", () => {
-    test.todo("When customer order no item then customer should get 0 price");
+    test("When customer order no item then customer should get 0 price", () => {
+      const order: Order = [];
+      const isMembership = false;
+      const expectedBill: CalculatedBill = {
+        orderHistory: defaultBill,
+        totalPrice: 0,
+      };
+      const result = new Calculator().calculate(
+        order,
+        isMembership,
+        defaultBill
+      );
+      expect(result).toEqual(expectedBill);
+    });
   });
 });
