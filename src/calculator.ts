@@ -1,11 +1,11 @@
 type Price = number;
-export type Bill = Record<keyof typeof ITEM_PRICE_TABLE, number>;
-export type CalculatedBill = {
-  orderHistory: Bill;
+export type Order = Record<keyof typeof ITEM_PRICE_TABLE, number>;
+export type Bill = {
+  order: Order;
   totalPrice: Price;
 };
 export type Item = keyof typeof ITEM_PRICE_TABLE;
-export type Order = Item[];
+export type Items = Item[];
 export const ITEM_PRICE_TABLE = {
   Red: 50,
   Green: 40,
@@ -15,7 +15,7 @@ export const ITEM_PRICE_TABLE = {
   Purple: 90,
   Orange: 120,
 } as const;
-export const DEFAULT_BILL: Bill = {
+export const DEFAULT_ORDER: Order = {
   Red: 0,
   Green: 0,
   Blue: 0,
@@ -28,23 +28,19 @@ export default class Calculator {
   private MEMBER_DISCOUNT_RATE = 0.9;
   private DOUBLE_ITEMS_DISCOUNT_RATE = 0.95;
 
-  public calculate(
-    items: Order,
-    isMembership: boolean,
-    bill: Bill
-  ): CalculatedBill {
+  public calculate(items: Items, isMembership: boolean, order: Order): Bill {
     let totalPrice = items.reduce(this.summarizeToPrice(ITEM_PRICE_TABLE), 0);
-    const updatedBill = items.reduce(this.incrementItemInBill, {
-      ...bill,
+    const updatedOrder = items.reduce(this.incrementItemInBill, {
+      ...order,
     });
     if (isMembership) {
       totalPrice *= this.MEMBER_DISCOUNT_RATE;
     }
-    if (this.isDoubleItemsPromotion(updatedBill)) {
+    if (this.isDoubleItemsPromotion(updatedOrder)) {
       totalPrice *= this.DOUBLE_ITEMS_DISCOUNT_RATE;
     }
     return {
-      orderHistory: updatedBill,
+      order: updatedOrder,
       totalPrice,
     };
   }
@@ -52,13 +48,13 @@ export default class Calculator {
     return (accumulatePrice: Price, name: Item) =>
       accumulatePrice + itemPriceLookupTable[name];
   }
-  private incrementItemInBill(updatedBill: Bill, name: Item) {
+  private incrementItemInBill(updatedBill: Order, name: Item) {
     if (name in updatedBill) {
       updatedBill[name] += 1;
     }
     return updatedBill;
   }
-  private isDoubleItemsPromotion(updatedBill: Bill): boolean {
+  private isDoubleItemsPromotion(updatedBill: Order): boolean {
     const doublePromotionList: Item[] = ["Pink", "Orange", "Green"];
     return doublePromotionList.some((itemName) => updatedBill[itemName] >= 2);
   }
